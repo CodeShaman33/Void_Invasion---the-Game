@@ -8,6 +8,11 @@ class Ship:
         self.screen = game.screen
         self.screen_rect = game.screen.get_rect()
 
+        self.moving_right = False
+        self.moving_left = False
+        self.moving_up = False
+        self.moving_down = False
+
     # load image of the ship
 
         self.image = pygame.image.load(self.settings.shipImage_path)

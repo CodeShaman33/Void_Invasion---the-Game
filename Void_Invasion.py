@@ -28,6 +28,46 @@ class VoidInvasion:
             if event.type == pygame.QUIT:
                 sys.exit()
 
+            elif event.type == pygame.KEYDOWN:
+                self.check_keydown_events(event)
+
+            elif event.type == pygame.KEYUP:
+                self.check_keyup_events(event)
+
+    def  check_keydown_events(self, event):
+        if event.key == pygame.K_q:
+            sys.exit()
+
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = True
+
+        if event.key == pygame.K_LEFT:
+            self.ship.moving_left = True
+
+        if event.key == pygame.K_SPACE:
+            pass
+
+        if event.key == pygame.K_UP:
+            self.ship.moving_up = True
+
+        if event.key == pygame.K_DOWN:
+            self.ship.moving_down = True
+
+    def check_keyup_events(self, event):
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+
+        if event.key == pygame.K_LEFT:
+            self.ship.moving_left = False
+
+        if event.key == pygame.K_UP:
+            self.ship.moving_up = False
+
+        if event.key == pygame.K_DOWN:
+            self.ship.moving_down = False
+
+
+
     def update_screen(self):
         self.screen.fill(self.settings.background_color)
         self.ship.blitme()
