@@ -18,6 +18,7 @@ class Ship:
 
     # ship orientation settings
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     # movement basic variables
         self.moving_right = False
@@ -35,6 +36,14 @@ class Ship:
         if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed
 
+        if self.moving_up and self.rect.top > self.screen_rect.top:
+            self.y -= self.settings.ship_speed
+
+        if self.moving_down:
+            if self.rect.bottom <= self.screen_rect.bottom:
+                self.y += self.settings.ship_speed
+
     # upating ship orientation in space
         self.rect.x = self.x
+        self.rect.y = self.y
 
