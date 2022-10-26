@@ -54,6 +54,10 @@ class VoidInvasion:
         if event.key == pygame.K_DOWN:
             self.ship.moving_down = True
 
+    # key for quit the game
+        if event.key == pygame.K_q:
+            sys.exit()
+
     def check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
