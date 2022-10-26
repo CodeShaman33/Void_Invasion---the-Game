@@ -16,15 +16,22 @@ class VoidInvasion:
     def run_game(self):
         #starting gameplay loop
         while True:
+            self.check_events()
+            self.update_screen()
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
 
-            self.screen.fill(self.settings.background_color)
-            self.ship.blitme()
-            pygame.display.flip()
 
+
+    def check_events(self):
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+    def update_screen(self):
+        self.screen.fill(self.settings.background_color)
+        self.ship.blitme()
+        pygame.display.flip()
 
 
 
