@@ -1,6 +1,8 @@
 import sys
 import pygame
 from settings import Settings
+from ship import Ship
+
 
 class VoidInvasion:
 
@@ -9,6 +11,7 @@ class VoidInvasion:
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption('Invasion from the Void')
+        self.ship = Ship(self)
 
     def run_game(self):
         #starting gameplay loop
@@ -18,7 +21,9 @@ class VoidInvasion:
                 if event.type == pygame.QUIT:
                     sys.exit()
 
-        pygame.display.flip()
+            self.screen.fill(self.settings.background_color)
+            self.ship.blitme()
+            pygame.display.flip()
 
 
 
