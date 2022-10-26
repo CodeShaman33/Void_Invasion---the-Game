@@ -4,32 +4,37 @@ from settings import Settings
 class Ship:
 
     def __init__(self, game):
+    # basic settings
         self.settings = Settings()
         self.screen = game.screen
         self.screen_rect = game.screen.get_rect()
 
-        self.moving_right = False
-        self.moving_left = False
-        self.moving_up = False
-        self.moving_down = False
-
     # load image of the ship
-
         self.image = pygame.image.load(self.settings.shipImage_path)
         self.rect = self.image.get_rect()
 
     #every new user ship starts at the bottom of the screen
-
         self.rect.midbottom = self.screen_rect.midbottom
+
+    # ship orientation settings
+        self.x = float(self.rect.x)
+
+    # movement basic variables
+        self.moving_right = False
+        self.moving_left = False
+        self.moving_up = False
+        self.moving_down = False
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
 
     def update(self):
         if self.moving_right:
-            self.rect.x += 1
+            self.x += self.settings.ship_speed
 
         if self.moving_left:
-            self.rect.x -= 1
+            self.x -= self.settings.ship_speed
 
+    # upating ship orientation in space
+        self.rect.x = self.x
 
