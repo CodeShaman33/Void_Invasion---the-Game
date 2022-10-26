@@ -17,6 +17,7 @@ class VoidInvasion:
         #starting gameplay loop
         while True:
             self.check_events()
+            self.ship.update()
             self.update_screen()
 
 
