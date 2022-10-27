@@ -3,6 +3,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import ALien
 
 
 class VoidInvasion:
@@ -13,7 +14,11 @@ class VoidInvasion:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption('Invasion from the Void')
         self.ship = Ship(self)
+    # sprites
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+        self.create_fleet()
+    # additional variables
         self.var = False
 
     def run_game(self):
@@ -89,8 +94,10 @@ class VoidInvasion:
             else:
                 bullet.var = False
             bullet.draw_bullet()
-        pygame.display.flip()
+        self.aliens.draw(self.screen)
 
+        pygame.display.flip()
+W
     def _fire_bullet(self):
         new_bullet = Bullet(self)
         self.bullets.add(new_bullet)
@@ -101,6 +108,9 @@ class VoidInvasion:
         else:
             self.var = True
 
+    def create_fleet(self):
+        alien = ALien(self)
+        self.aliens.add(alien)
 
 
 
