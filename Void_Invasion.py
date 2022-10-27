@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 
 class VoidInvasion:
@@ -12,12 +13,14 @@ class VoidInvasion:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption('Invasion from the Void')
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         #starting gameplay loop
         while True:
             self.check_events()
             self.ship.update()
+            self.bullets.update()
             self.update_screen()
 
 
@@ -46,7 +49,7 @@ class VoidInvasion:
             self.ship.moving_left = True
 
         if event.key == pygame.K_SPACE:
-            pass
+            self._fire_bullet()
 
         if event.key == pygame.K_UP:
             self.ship.moving_up = True
@@ -76,7 +79,13 @@ class VoidInvasion:
     def update_screen(self):
         self.screen.fill(self.settings.background_color)
         self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         pygame.display.flip()
+
+    def _fire_bullet(self):
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
 
 
