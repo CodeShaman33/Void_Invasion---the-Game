@@ -28,6 +28,7 @@ class VoidInvasion:
             self.ship.update()
             self.bullets.update()
             self._update_aliens()
+            self._update_bullets()
             self.update_screen()
 
 
@@ -145,6 +146,11 @@ class VoidInvasion:
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= 0
+
+    def _update_bullets(self):
+
+        colissions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
 
 
 
