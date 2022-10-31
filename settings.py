@@ -16,4 +16,9 @@ class Settings:
         self.bullet_color = (60, 60, 60)
     # alien
         self.alienImage_path = 'images/alien.bmp'
+        self.alien_speed = 1.0
+        self.fleet_drop_speed = 1.0
+    # fleet direction = 1 means right, 0 means down
+        self.fleet_direction = 1
+
 
