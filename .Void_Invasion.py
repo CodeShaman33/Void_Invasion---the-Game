@@ -4,6 +4,7 @@ from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import ALien
+from button import Button
 
 
 class VoidInvasion:
@@ -18,6 +19,9 @@ class VoidInvasion:
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         self.create_fleet()
+    #buttons
+        self.play_button = Button(self, 'Gra')
+
     # additional variables
         self.var = False
 
@@ -29,6 +33,9 @@ class VoidInvasion:
             self.bullets.update()
             self._update_aliens()
             self._update_bullets()
+            self.check_colissions()
+            self._update_bullets()
+            self.check_ship()
             self.update_screen()
 
 
@@ -96,6 +103,8 @@ class VoidInvasion:
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
 
+
+
         pygame.display.flip()
 
     def _fire_bullet(self):
@@ -148,8 +157,18 @@ class VoidInvasion:
         self.settings.fleet_direction *= 0
 
     def _update_bullets(self):
+        if not self.aliens:
+            self.bullets.empty()
+            self.create_fleet()
 
+    def check_ship(self):
+        if self.settings.ship_collision >= 3:
+            print('koniec gry')
+
+    def check_colissions(self):
         colissions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self.settings.ship_collision += 1
 
 
 
