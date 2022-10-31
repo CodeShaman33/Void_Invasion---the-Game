@@ -63,8 +63,6 @@ class VoidInvasion:
         if event.key == pygame.K_DOWN:
             self.ship.moving_down = True
 
-        if event.key == pygame.K_t:
-            self.change_bool()
 
     # key for quit the game
         if event.key == pygame.K_q:
@@ -97,16 +95,11 @@ class VoidInvasion:
         self.aliens.draw(self.screen)
 
         pygame.display.flip()
-W
+
     def _fire_bullet(self):
         new_bullet = Bullet(self)
         self.bullets.add(new_bullet)
 
-    def change_bool(self):
-        if self.var:
-            self.var = False
-        else:
-            self.var = True
 
     def create_fleet(self):
         alien = ALien(self)
