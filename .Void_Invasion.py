@@ -2,7 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
-from bullet import Bullet
+from bullet import Bullet, BulletHorizontal
 from alien import ALien
 from button import Button
 
@@ -17,6 +17,7 @@ class VoidInvasion:
         self.ship = Ship(self)
     # sprites
         self.bullets = pygame.sprite.Group()
+        self.bullets_horizontal = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         self.create_fleet()
     #buttons
@@ -26,11 +27,14 @@ class VoidInvasion:
         self.var = False
 
     def run_game(self):
+        self.play_button.draw_button()
         #starting gameplay loop
         while True:
+
             self.check_events()
             self.ship.update()
             self.bullets.update()
+            self.bullets_horizontal.update()
             self._update_aliens()
             self._update_bullets()
             self.check_colissions()
@@ -65,6 +69,9 @@ class VoidInvasion:
 
         if event.key == pygame.K_SPACE:
             self._fire_bullet()
+
+        if event.key == pygame.K_r:
+            self.fire_bullet_horizontal()
 
         if event.key == pygame.K_UP:
             self.ship.moving_up = True
@@ -101,6 +108,14 @@ class VoidInvasion:
             else:
                 bullet.var = False
             bullet.draw_bullet()
+
+        for bullet in self.bullets_horizontal.sprites():
+            if self.var:
+                bullet.var = True
+            else:
+                bullet.var = False
+            bullet.draw_bullet()
+
         self.aliens.draw(self.screen)
 
 
@@ -110,6 +125,13 @@ class VoidInvasion:
     def _fire_bullet(self):
         new_bullet = Bullet(self)
         self.bullets.add(new_bullet)
+
+
+    def fire_bullet_horizontal(self):
+        new_bullet = BulletHorizontal(self)
+        self.bullets_horizontal.add(new_bullet)
+
+
 
 
     def create_fleet(self):
@@ -167,6 +189,7 @@ class VoidInvasion:
 
     def check_colissions(self):
         colissions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        colissions2 = pygame.sprite.groupcollide(self.bullets_horizontal, self.aliens, True, True)
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self.settings.ship_collision += 1
 
