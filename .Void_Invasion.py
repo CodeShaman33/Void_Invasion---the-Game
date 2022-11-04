@@ -128,8 +128,10 @@ class VoidInvasion:
 
 
     def fire_bullet_horizontal(self):
-        new_bullet = BulletHorizontal(self)
+        new_bullet = BulletHorizontal(self, 0)
+        new_bullet2 = BulletHorizontal(self, 1)
         self.bullets_horizontal.add(new_bullet)
+        self.bullets_horizontal.add(new_bullet2)
 
 
 
