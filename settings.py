@@ -28,5 +28,9 @@ class Settings:
         self.fleet_direction = 1
     #colissions
         self.ship_collision = 0
+    #buttons
+        self.play_button_pos = (self.screen_width/2, self.screen_height/2)
+        self.quit_button_pos = (self.screen_width/2, self.screen_height/2 + 100)
+
 
 

@@ -23,7 +23,11 @@ class VoidInvasion:
         self.aliens = pygame.sprite.Group()
         self.create_fleet()
     #buttons
-        self.play_button = Button(self, 'Gra')
+        self.buttons = []
+        self.play_button = Button(self, 'Gra', self.settings.play_button_pos)
+        self.buttons.append(self.play_button)
+        self.quit_button = Button(self, 'Wyjdz', self.settings.quit_button_pos)
+        self.buttons.append(self.quit_button)
 
     # additional variables
         self.var = False
@@ -68,7 +72,7 @@ class VoidInvasion:
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                self._check_play_button(mouse_pos)
+                self._check_buttons(mouse_pos)
 
     def  check_keydown_events(self, event):
         if event.key == pygame.K_q:
@@ -132,7 +136,8 @@ class VoidInvasion:
         self.aliens.draw(self.screen)
     # play button
         if not self.stats.game_active:
-            self.play_button.draw_button()
+            for button in self.buttons:
+                button.draw_button()
 
         pygame.display.flip()
 
@@ -225,16 +230,21 @@ class VoidInvasion:
             self.stats.game_active=False
             self.prepare_new()
 
-    def _check_play_button(self, mouse_pos):
+    def _check_buttons(self, mouse_pos):
+        play_button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        quit_button_clicked = self.quit_button.rect.collidepoint(mouse_pos)
 
-    #local variable
-        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
-        if button_clicked and not self.stats.game_active:
+        if play_button_clicked and not self.stats.game_active:
 
             self.stats.reset_stats()
             self.stats.game_active = True
             pygame.mouse.set_visible(False)
             self.prepare_new()
+
+        elif quit_button_clicked:
+            sys.exit()
+
+
 
     def prepare_new(self):
         self.aliens.empty()
