@@ -11,11 +11,12 @@ class Button:
         self.button_color = (0, 255, 5)
         self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont(None, 48)
+        self.position = position
 
-        self.rect = pygame.Rect(self.position[0], self.position[1], self.width, self.height)
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
         #self.rect.center = self.screen_rect.center
 
-
+        self.position_set()
 
         self._msg(msg)
 
@@ -29,3 +30,26 @@ class Button:
 
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
+
+    def position_set(self):
+        if self.position == 'center':
+            self.rect.center = self.screen_rect.center
+        elif self.position == '+1':
+            self.rect.center = self.screen_rect.center
+            self.rect.bottom -= 100
+        elif self.position == '-1':
+            self.rect.center = self.screen_rect.center
+            self.rect.top += 100
+        elif self.position == '-2':
+            self.rect.center = self.screen_rect.center
+            self.rect.top += 300
+        elif self.position == '+2':
+            self.rect.center = self.screen_rect.center
+            self.rect.bottom -= 200
+
+
+
+
+
+
+

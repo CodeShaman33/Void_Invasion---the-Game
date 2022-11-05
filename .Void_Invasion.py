@@ -25,13 +25,13 @@ class VoidInvasion:
         self.create_fleet()
     #buttons
         self.buttons = []
-        self.play_button = Button(self, 'Gra', self.settings.play_button_pos)
+        self.play_button = Button(self, 'Play', self.settings.position['play'])
         self.buttons.append(self.play_button)
-        self.quit_button = Button(self, 'Wyjdz', self.settings.quit_button_pos)
+        self.quit_button = Button(self, 'Quit',self.settings.position['quit'])
         self.buttons.append(self.quit_button)
-        self.diff_button = Button(self, 'Zmien poziom trudności', self.settings.diff_button_pos)
+        self.diff_button = Button(self, 'Change Difficulty', self.settings.position['change diff'])
         self.buttons.append(self.diff_button)
-        self.diff_status = Button(self, str(self.settings.difficulty_levels[self.settings.difficulty_var]), self.settings.diff_status_pos)
+        self.diff_status = Button(self, str(self.settings.difficulty_levels[self.settings.difficulty_var]), self.settings.position['diff_status'])
         self.buttons.append(self.diff_status)
 
     # additional variables

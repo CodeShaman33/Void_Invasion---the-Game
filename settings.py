@@ -29,10 +29,13 @@ class Settings:
     # colissions
         self.ship_collision = 0
     # buttons
-        self.play_button_pos = (self.screen_width/2, self.screen_height/2)
-        self.quit_button_pos = (self.screen_width/2, self.screen_height/2 + 100)
-        self.diff_button_pos = (self.screen_width/2, self.screen_height/2 + 200)
-        self.diff_status_pos = (self.screen_width/2, self.screen_height/2 - 100)
+    # on the left side is specific button with the position as a value
+        self.position = {
+            'play': 'center',
+            'change diff': '+1',
+            'diff_status': '+2',
+            'quit': '-1'
+        }
 
     # difficulty settings
     # variable in range (1 - 3) where 1 = easy; 2 = medium; 3 = hard
@@ -44,6 +47,7 @@ class Settings:
         }
     # score and more
         self.alien_points = 50
+
 
 
 
