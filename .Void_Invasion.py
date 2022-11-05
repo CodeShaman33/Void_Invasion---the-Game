@@ -25,6 +25,9 @@ class VoidInvasion:
 
     # additional variables
         self.var = False
+    # FPS
+        self.FPS = self.settings.FPS
+        self.FPS_clock = pygame.time.Clock()
 
     def run_game(self):
         self.play_button.draw_button()
@@ -41,6 +44,7 @@ class VoidInvasion:
             self._update_bullets()
             self.check_ship()
             self.update_screen()
+            self.FPS_clock.tick(self.FPS)
 
 
 

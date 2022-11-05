@@ -23,7 +23,7 @@ class Bullet(Sprite):
         pygame.draw.rect(self.screen, self.color, self.rect)
 
 
-class BulletHorizontal(Sprite, Bullet):
+class BulletHorizontal(Sprite):
 
     def __init__(self, game, temp_var):
         super().__init__()
