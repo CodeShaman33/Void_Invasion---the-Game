@@ -221,6 +221,7 @@ class VoidInvasion:
             self.stats.ships_left -= 1
             time.sleep(0.5)
         else:
+            pygame.mouse.set_visible(True)
             self.stats.game_active=False
             self.prepare_new()
 
@@ -232,7 +233,7 @@ class VoidInvasion:
 
             self.stats.reset_stats()
             self.stats.game_active = True
-
+            pygame.mouse.set_visible(False)
             self.prepare_new()
 
     def prepare_new(self):
