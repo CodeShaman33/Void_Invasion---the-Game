@@ -8,6 +8,7 @@ from button import Button
 from stats import Stats
 import time
 from score_board import Scoreboard
+from functions import Functions
 
 
 class VoidInvasion:
@@ -33,6 +34,7 @@ class VoidInvasion:
         self.buttons.append(self.diff_button)
         self.diff_status = Button(self, str(self.settings.difficulty_levels[self.settings.difficulty_var]), self.settings.position['diff_status'])
         self.buttons.append(self.diff_status)
+        self.functions = Functions(self)
 
     # additional variables
         self.var = False
@@ -44,13 +46,16 @@ class VoidInvasion:
     # scoreboard
         self.sb = Scoreboard(self)
         self.score = self.stats.score
+        self.functions = Functions(self)
+
 
     def run_game(self):
         self.play_button.draw_button()
         #starting gameplay loop
         while True:
 
-            self.check_events()
+            #self.check_events()
+            self.functions.check_events()
             if self.stats.game_active:
                 self.ship.update()
                 self.bullets.update()
