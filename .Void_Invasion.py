@@ -28,6 +28,10 @@ class VoidInvasion:
         self.buttons.append(self.play_button)
         self.quit_button = Button(self, 'Wyjdz', self.settings.quit_button_pos)
         self.buttons.append(self.quit_button)
+        self.diff_button = Button(self, 'Zmien poziom trudności', self.settings.diff_button_pos)
+        self.buttons.append(self.diff_button)
+        self.diff_status = Button(self, str(self.settings.difficulty_levels[self.settings.difficulty_var]), self.settings.diff_status_pos)
+        self.buttons.append(self.diff_status)
 
     # additional variables
         self.var = False
@@ -233,6 +237,7 @@ class VoidInvasion:
     def _check_buttons(self, mouse_pos):
         play_button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         quit_button_clicked = self.quit_button.rect.collidepoint(mouse_pos)
+        diff_button_clicked = self.diff_button.rect.collidepoint(mouse_pos)
 
         if play_button_clicked and not self.stats.game_active:
 
@@ -244,6 +249,11 @@ class VoidInvasion:
         elif quit_button_clicked:
             sys.exit()
 
+        elif diff_button_clicked:
+            self.change_difficulty()
+
+        self.update_screen()
+
 
 
     def prepare_new(self):
@@ -252,6 +262,19 @@ class VoidInvasion:
 
         self.create_fleet()
         self.ship.center_ship()
+
+    def change_difficulty(self):
+        if self.settings.difficulty_var == 1:
+            self.settings.difficulty_var += 1
+
+        elif self.settings.difficulty_var == 2:
+            self.settings.difficulty_var += 1
+
+        elif self.settings.difficulty_var == 3:
+            self.settings.difficulty_var = 1
+
+        print(self.settings.difficulty_var)
+
 
 
 
