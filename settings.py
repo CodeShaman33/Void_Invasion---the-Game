@@ -6,7 +6,7 @@ class Settings:
         self.screen_width = 1200
         self.screen_height = 600
         self.background_color = (230, 230, 230)
-        self.FPS = 60
+        self.FPS = 240
     # ship settings
         self.shipImage_path = 'images/ship.bmp'
         self.ship_speed = 1.5
@@ -42,6 +42,8 @@ class Settings:
             2: 'Medium',
             3: 'Hard'
         }
+    # score and more
+        self.alien_points = 50
 
 
 

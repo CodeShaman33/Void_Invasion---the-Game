@@ -7,6 +7,7 @@ from alien import ALien
 from button import Button
 from stats import Stats
 import time
+from score_board import Scoreboard
 
 
 class VoidInvasion:
@@ -38,8 +39,11 @@ class VoidInvasion:
     # FPS
         self.FPS = self.settings.FPS
         self.FPS_clock = pygame.time.Clock()
-    #stats
+    # stats
         self.stats = Stats(self)
+    # scoreboard
+        self.sb = Scoreboard(self)
+        self.score = self.stats.score
 
     def run_game(self):
         self.play_button.draw_button()
@@ -58,6 +62,7 @@ class VoidInvasion:
                 self.check_ship()
             self.update_screen()
             self.FPS_clock.tick(self.FPS)
+            print(self.stats.score)
 
 
 
@@ -138,6 +143,7 @@ class VoidInvasion:
             bullet.draw_bullet()
 
         self.aliens.draw(self.screen)
+        self.sb.show_score()
     # play button
         if not self.stats.game_active:
             for button in self.buttons:
@@ -215,8 +221,13 @@ class VoidInvasion:
     def check_colissions(self):
         colissions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
         colissions2 = pygame.sprite.groupcollide(self.bullets_horizontal, self.aliens, True, True)
+        if colissions or colissions2:
+            self.stats.score += self.settings.alien_points
+        self.sb.prep_score()
+
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self.ship_hit()
+            self.stats.score += self.settings.alien_points
 
     def _check_aliens_bottom(self):
         screen_rect = self.screen.get_rect()
@@ -274,6 +285,8 @@ class VoidInvasion:
             self.settings.difficulty_var = 1
 
         print(self.settings.difficulty_var)
+
+
 
 
 
