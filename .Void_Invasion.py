@@ -23,7 +23,7 @@ class VoidInvasion:
         self.bullets = pygame.sprite.Group()
         self.bullets_horizontal = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
-        self.create_fleet()
+        #self.create_fleet()
     #buttons
         self.buttons = []
         self.play_button = Button(self, 'Play', self.settings.position['play'])
@@ -88,45 +88,10 @@ class VoidInvasion:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_buttons(mouse_pos)
 
-    def  check_keydown_events(self, event):
-        if event.key == pygame.K_q:
-            sys.exit()
-
-        if event.key == pygame.K_RIGHT:
-            self.ship.moving_right = True
-
-        if event.key == pygame.K_LEFT:
-            self.ship.moving_left = True
-
-        if event.key == pygame.K_SPACE:
-            self._fire_bullet()
-
-        if event.key == pygame.K_r:
-            self.fire_bullet_horizontal()
-
-        if event.key == pygame.K_UP:
-            self.ship.moving_up = True
-
-        if event.key == pygame.K_DOWN:
-            self.ship.moving_down = True
 
 
-    # key for quit the game
-        if event.key == pygame.K_q:
-            sys.exit()
 
-    def check_keyup_events(self, event):
-        if event.key == pygame.K_RIGHT:
-            self.ship.moving_right = False
 
-        if event.key == pygame.K_LEFT:
-            self.ship.moving_left = False
-
-        if event.key == pygame.K_UP:
-            self.ship.moving_up = False
-
-        if event.key == pygame.K_DOWN:
-            self.ship.moving_down = False
 
 
 
