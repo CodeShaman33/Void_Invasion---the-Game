@@ -62,31 +62,16 @@ class VoidInvasion:
                 self.bullets_horizontal.update()
                 self._update_aliens()
                 self._update_bullets()
-                self.check_colissions()
+                self.functions.check_colissions()
                 self._update_bullets()
                 self.check_ship()
-            self.update_screen()
+            self.functions.update_screen()
             self.FPS_clock.tick(self.FPS)
             print(self.stats.score)
 
 
 
 
-    def check_events(self):
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-
-            elif event.type == pygame.KEYDOWN:
-                self.check_keydown_events(event)
-
-            elif event.type == pygame.KEYUP:
-                self.check_keyup_events(event)
-
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-                self._check_buttons(mouse_pos)
 
 
 
@@ -95,72 +80,15 @@ class VoidInvasion:
 
 
 
-    def update_screen(self):
-        self.screen.fill(self.settings.background_color)
-        self.ship.blitme()
-        for bullet in self.bullets.sprites():
-            if self.var:
-                bullet.var = True
-            else:
-                bullet.var = False
-            bullet.draw_bullet()
-
-        for bullet in self.bullets_horizontal.sprites():
-            if self.var:
-                bullet.var = True
-            else:
-                bullet.var = False
-            bullet.draw_bullet()
-
-        self.aliens.draw(self.screen)
-        self.sb.show_score()
-    # play button
-        if not self.stats.game_active:
-            for button in self.buttons:
-                button.draw_button()
-
-        pygame.display.flip()
-
-    def _fire_bullet(self):
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
-
-
-    def fire_bullet_horizontal(self):
-        new_bullet = BulletHorizontal(self, 0)
-        new_bullet2 = BulletHorizontal(self, 1)
-        self.bullets_horizontal.add(new_bullet)
-        self.bullets_horizontal.add(new_bullet2)
 
 
 
 
-    def create_fleet(self):
-        alien = ALien(self)
-        self.aliens.add(alien)
-        alien_width, alien_height = alien.rect.size
-        available_space_x = self.settings.screen_width - (2 * alien_width)
-        number_alien_x = available_space_x // (2 * alien_width)
 
-    #checking how many rows of aliens fit to the screen
 
-        ship_height = self.ship.rect.height
-        available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_height)
-        number_rows = available_space_y // (2 * alien_height)
 
-    # create full fleet of aliens
 
-        for row_number in range(number_rows):
-            for alien_number in range(number_alien_x):
-                self._create_alien(alien_number, row_number)
 
-    def _create_alien(self, alien_number, row_number):
-        alien = ALien(self)
-        alien_width, alien_height = alien.rect.size
-        alien.x = alien_width + 2 * alien_width * alien_number
-        alien.rect.x = alien.x
-        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
-        self.aliens.add(alien)
 
     def _update_aliens(self):
 
@@ -182,79 +110,11 @@ class VoidInvasion:
     def _update_bullets(self):
         if not self.aliens:
             self.bullets.empty()
-            self.create_fleet()
+            self.functions.create_fleet()
 
     def check_ship(self):
         if self.settings.ship_collision >= 3:
             print('koniec gry')
-
-    def check_colissions(self):
-        colissions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
-        colissions2 = pygame.sprite.groupcollide(self.bullets_horizontal, self.aliens, True, True)
-        if colissions or colissions2:
-            self.stats.score += self.settings.alien_points
-        self.sb.prep_score()
-
-        if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            self.ship_hit()
-            self.stats.score += self.settings.alien_points
-
-    def _check_aliens_bottom(self):
-        screen_rect = self.screen.get_rect()
-        for alien in self.aliens.sprites():
-            if alien.rect.bottom >= screen_rect.bottom:
-                self.ship_hit()
-                break
-
-    def ship_hit(self):
-        if self.stats.ships_left > 0:
-            self.stats.ships_left -= 1
-            time.sleep(0.5)
-        else:
-            pygame.mouse.set_visible(True)
-            self.stats.game_active=False
-            self.prepare_new()
-
-    def _check_buttons(self, mouse_pos):
-        play_button_clicked = self.play_button.rect.collidepoint(mouse_pos)
-        quit_button_clicked = self.quit_button.rect.collidepoint(mouse_pos)
-        diff_button_clicked = self.diff_button.rect.collidepoint(mouse_pos)
-
-        if play_button_clicked and not self.stats.game_active:
-
-            self.stats.reset_stats()
-            self.stats.game_active = True
-            pygame.mouse.set_visible(False)
-            self.prepare_new()
-
-        elif quit_button_clicked:
-            sys.exit()
-
-        elif diff_button_clicked:
-            self.change_difficulty()
-
-        self.update_screen()
-
-
-
-    def prepare_new(self):
-        self.aliens.empty()
-        self.bullets.empty()
-
-        self.create_fleet()
-        self.ship.center_ship()
-
-    def change_difficulty(self):
-        if self.settings.difficulty_var == 1:
-            self.settings.difficulty_var += 1
-
-        elif self.settings.difficulty_var == 2:
-            self.settings.difficulty_var += 1
-
-        elif self.settings.difficulty_var == 3:
-            self.settings.difficulty_var = 1
-
-        print(self.settings.difficulty_var)
 
 
 
