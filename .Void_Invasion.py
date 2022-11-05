@@ -5,6 +5,8 @@ from ship import Ship
 from bullet import Bullet, BulletHorizontal
 from alien import ALien
 from button import Button
+from stats import Stats
+import time
 
 
 class VoidInvasion:
@@ -28,6 +30,8 @@ class VoidInvasion:
     # FPS
         self.FPS = self.settings.FPS
         self.FPS_clock = pygame.time.Clock()
+    #stats
+        self.stats = Stats(self)
 
     def run_game(self):
         self.play_button.draw_button()
@@ -35,14 +39,15 @@ class VoidInvasion:
         while True:
 
             self.check_events()
-            self.ship.update()
-            self.bullets.update()
-            self.bullets_horizontal.update()
-            self._update_aliens()
-            self._update_bullets()
-            self.check_colissions()
-            self._update_bullets()
-            self.check_ship()
+            if self.stats.game_active:
+                self.ship.update()
+                self.bullets.update()
+                self.bullets_horizontal.update()
+                self._update_aliens()
+                self._update_bullets()
+                self.check_colissions()
+                self._update_bullets()
+                self.check_ship()
             self.update_screen()
             self.FPS_clock.tick(self.FPS)
 
@@ -60,6 +65,10 @@ class VoidInvasion:
 
             elif event.type == pygame.KEYUP:
                 self.check_keyup_events(event)
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
     def  check_keydown_events(self, event):
         if event.key == pygame.K_q:
@@ -121,8 +130,9 @@ class VoidInvasion:
             bullet.draw_bullet()
 
         self.aliens.draw(self.screen)
-
-
+    # play button
+        if not self.stats.game_active:
+            self.play_button.draw_button()
 
         pygame.display.flip()
 
@@ -197,7 +207,40 @@ class VoidInvasion:
         colissions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
         colissions2 = pygame.sprite.groupcollide(self.bullets_horizontal, self.aliens, True, True)
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            self.settings.ship_collision += 1
+            self.ship_hit()
+
+    def _check_aliens_bottom(self):
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                self.ship_hit()
+                break
+
+    def ship_hit(self):
+        if self.stats.ships_left > 0:
+            self.stats.ships_left -= 1
+            time.sleep(0.5)
+        else:
+            self.stats.game_active=False
+            self.prepare_new()
+
+    def _check_play_button(self, mouse_pos):
+
+    #local variable
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
+
+            self.stats.reset_stats()
+            self.stats.game_active = True
+
+            self.prepare_new()
+
+    def prepare_new(self):
+        self.aliens.empty()
+        self.bullets.empty()
+
+        self.create_fleet()
+        self.ship.center_ship()
 
 
 
