@@ -24,7 +24,9 @@ class VoidInvasion:
         self.bullets = pygame.sprite.Group()
         self.bullets_horizontal = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
-        self.collision_sound = pygame.mixer.Sound('sounds/blaster.wav')
+    # sounds
+        self.laser_sound = pygame.mixer.Sound(self.settings.laser_sound)
+        self.collision_sound = pygame.mixer.Sound(self.settings.collision_sound)
         #self.create_fleet()
     #buttons
         self.buttons = []

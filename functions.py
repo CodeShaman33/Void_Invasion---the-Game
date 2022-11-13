@@ -160,7 +160,7 @@ class Functions:
 
         self.game.aliens.draw(self.game.screen)
         self.game.sb.show_score()
-    # play button
+    # display menu if game isnt active
         if not self.game.stats.game_active:
             for button in self.game.buttons:
                 button.draw_button()
@@ -181,8 +181,10 @@ class Functions:
         colissions2 = pygame.sprite.groupcollide(self.game.bullets_horizontal, self.game.aliens, True, True)
         if colissions or colissions2:
             self.game.stats.score += self.game.settings.alien_points
+        # sounds
             pygame.mixer.Sound.play(self.game.collision_sound)
             pygame.mixer.music.stop()
+
 
         self.game.sb.prep_score()
 
@@ -200,6 +202,8 @@ class Functions:
     def _fire_bullet(self):
         new_bullet = Bullet(self.game)
         self.game.bullets.add(new_bullet)
+        pygame.mixer.Sound.play(self.game.laser_sound)
+        pygame.mixer.music.stop()
 
     def fire_bullet_horizontal(self):
         new_bullet = BulletHorizontal(self.game, 0)

@@ -47,6 +47,10 @@ class Settings:
         }
     # score and more
         self.alien_points = 50
+    #sounds
+        self.laser_sound = 'sounds/blaster.wav'
+        self.collision_sound = 'sounds/explosion.wav'
+
 
 
 
