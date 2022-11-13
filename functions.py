@@ -1,8 +1,9 @@
+import random
 import sys
 import pygame
 from settings import Settings
 from ship import Ship
-from bullet import Bullet, BulletHorizontal
+from bullet import Bullet, BulletHorizontal, AlienBullet
 from alien import ALien
 from button import Button
 from stats import Stats
@@ -158,6 +159,9 @@ class Functions:
                 bullet.var = False
             bullet.draw_bullet()
 
+        for bullet in self.game.alien_bullets.sprites():
+            bullet.draw_bullet()
+
         self.game.aliens.draw(self.game.screen)
         self.game.sb.show_score()
     # display menu if game isnt active
@@ -221,7 +225,9 @@ class Functions:
             alien.rect.y += 30
 
     def alien_shot(self):
-
+        shooting_alien = random.choice(self.game.aliens.sprites())
+        alien_bullet = AlienBullet(self.game, shooting_alien)
+        self.game.alien_bullets.add(alien_bullet)
 
 
 

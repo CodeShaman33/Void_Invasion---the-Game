@@ -61,8 +61,10 @@ class VoidInvasion:
             self.functions.check_events()
             if self.stats.game_active:
                 self.ship.update()
+                self.functions.alien_shot()
                 self.bullets.update()
                 self.bullets_horizontal.update()
+                self.alien_bullets.update()
                 self._update_aliens()
                 self.functions._update_bullets()
                 self.functions.check_colissions()
