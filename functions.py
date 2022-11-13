@@ -216,6 +216,14 @@ class Functions:
             self.game.bullets.empty()
             self.game.functions.create_fleet()
 
+    def fleet_down(self):
+        for alien in self.game.aliens.sprites():
+            alien.rect.y += 30
+
+    def alien_shot(self):
+
+
+
 
 
 

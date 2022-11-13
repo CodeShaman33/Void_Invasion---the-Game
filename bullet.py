@@ -57,3 +57,10 @@ class BulletHorizontal(Sprite):
     def draw_bullet(self):
         pygame.draw.rect(self.screen, self.color, self.rect)
 
+class AlienBullet(Sprite):
+
+    def __init__(self, game):
+        super().__init__()
+        self.screen = game.screen
+        self.settings = Settings()
+        self.color = self.settings.alien_bullet_color

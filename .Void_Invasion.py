@@ -23,6 +23,7 @@ class VoidInvasion:
     # sprites
         self.bullets = pygame.sprite.Group()
         self.bullets_horizontal = pygame.sprite.Group()
+        self.alien_bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
     # sounds
         self.laser_sound = pygame.mixer.Sound(self.settings.laser_sound)
@@ -99,6 +100,7 @@ class VoidInvasion:
         for alien in self.aliens.sprites():
             if alien.check_edges():
                 self._change_fleet_direction()
+                self.functions.fleet_down()
                 break
 
     def _change_fleet_direction(self):

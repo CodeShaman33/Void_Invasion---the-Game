@@ -6,7 +6,7 @@ class Settings:
         self.screen_width = 1200
         self.screen_height = 600
         self.background_color = (230, 230, 230)
-        self.FPS = 240
+        self.FPS = 400
     # ship settings
         self.shipImage_path = 'images/ship.bmp'
         self.ship_speed = 1.5
@@ -16,6 +16,7 @@ class Settings:
         self.bullet_speed = 1
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
+        self.alien_bullet_color = (0, 0, 122)
     # horizontal bullet
         self.horizontal_bullet_width = 2
         self.horizontal_bullet_height = 25
