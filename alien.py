@@ -8,7 +8,7 @@ class ALien(Sprite):
         super().__init__()
 
         self.screen = game.screen
-        self.settings = Settings()
+        self.settings = game.settings
     # image of the alien
         self.image = pygame.image.load(self.settings.alienImage_path)
         self.rect = self.image.get_rect()
@@ -21,8 +21,11 @@ class ALien(Sprite):
         self.fleet_down = False
 
     def update(self):
-        if not self.fleet_down:
-            self.x += (self.settings.alien_speed * self.settings.fleet_direction)
+        if self.settings.fleet_direction == 1:
+            self.x += (self.settings.alien_speed)
+            self.rect.x = self.x
+        elif self.settings.fleet_direction == 0:
+            self.x -= (self.settings.alien_speed)
             self.rect.x = self.x
 
 

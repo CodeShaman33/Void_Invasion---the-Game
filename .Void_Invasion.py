@@ -57,17 +57,14 @@ class VoidInvasion:
         self.play_button.draw_button()
         #starting gameplay loop
         while True:
-
-            #self.check_events()
             self.functions.check_events()
             if self.stats.game_active:
                 self.ship.update()
                 self.bullets.update()
                 self.bullets_horizontal.update()
                 self._update_aliens()
-                self._update_bullets()
+                self.functions._update_bullets()
                 self.functions.check_colissions()
-                self._update_bullets()
                 self.check_ship()
             self.functions.update_screen()
             self.FPS_clock.tick(self.FPS)
@@ -96,8 +93,7 @@ class VoidInvasion:
     def _update_aliens(self):
 
         self._check_fleet_edges()
-        if self.settings.fleet_direction == 1:
-            self.aliens.update()
+        self.aliens.update()
 
     def _check_fleet_edges(self):
         for alien in self.aliens.sprites():
@@ -106,14 +102,12 @@ class VoidInvasion:
                 break
 
     def _change_fleet_direction(self):
-        for alien in self.aliens.sprites():
-            alien.rect.y += self.settings.fleet_drop_speed
-        self.settings.fleet_direction *= 0
+        if self.settings.fleet_direction == 1:
+            self.settings.fleet_direction = 0
+        elif self.settings.fleet_direction == 0:
+            self.settings.fleet_direction = 1
 
-    def _update_bullets(self):
-        if not self.aliens:
-            self.bullets.empty()
-            self.functions.create_fleet()
+
 
     def check_ship(self):
         if self.settings.ship_collision >= 3:

@@ -211,6 +211,11 @@ class Functions:
         self.game.bullets_horizontal.add(new_bullet)
         self.game.bullets_horizontal.add(new_bullet2)
 
+    def _update_bullets(self):
+        if not self.game.aliens:
+            self.game.bullets.empty()
+            self.game.functions.create_fleet()
+
 
 
 
