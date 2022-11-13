@@ -181,6 +181,9 @@ class Functions:
         colissions2 = pygame.sprite.groupcollide(self.game.bullets_horizontal, self.game.aliens, True, True)
         if colissions or colissions2:
             self.game.stats.score += self.game.settings.alien_points
+            pygame.mixer.Sound.play(self.game.collision_sound)
+            pygame.mixer.music.stop()
+
         self.game.sb.prep_score()
 
         if pygame.sprite.spritecollideany(self.game.ship, self.game.aliens):

@@ -15,6 +15,7 @@ class VoidInvasion:
 
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption('Invasion from the Void')
@@ -23,6 +24,7 @@ class VoidInvasion:
         self.bullets = pygame.sprite.Group()
         self.bullets_horizontal = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
+        self.collision_sound = pygame.mixer.Sound('sounds/blaster.wav')
         #self.create_fleet()
     #buttons
         self.buttons = []
@@ -67,7 +69,6 @@ class VoidInvasion:
                 self.check_ship()
             self.functions.update_screen()
             self.FPS_clock.tick(self.FPS)
-            print(self.stats.score)
 
 
 
