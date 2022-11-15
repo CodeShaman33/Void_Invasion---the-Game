@@ -175,8 +175,8 @@ class Functions:
         pygame.display.flip()
 
     def ship_hit(self):
-        if self.game.stats.ships_left > 0:
-            self.game.stats.ships_left -= 1
+        if self.game.stats.ship_health > 0:
+            self.game.stats.ship_health -= 1
             time.sleep(0.5)
         else:
             pygame.mouse.set_visible(True)
@@ -247,8 +247,11 @@ class Functions:
         pygame.draw.rect(self.game.screen, (255, 0, 0), pygame.Rect(self.game.ship.rect.x, self.game.ship.rect.y + 50, 60, 10))
 # green life indicator
         pygame.draw.rect(self.game.screen, (0, 255, 0), pygame.Rect(self.game.ship.rect.x, self.game.ship.rect.y + 50, self.game.stats.ship_health * 6, 10))
+# power bar background
+        pygame.draw.rect(self.game.screen, (255, 0, 255), pygame.Rect(self.game.ship.rect.x, self.game.ship.rect.y + 100, 60, 10))
+# power bar indicator
+        pygame.draw.rect(self.game.screen, (0, 0, 255), pygame.Rect(self.game.ship.rect.x, self.game.ship.rect.y + 100, 60, 10))
 
-        print(health_level)
 
 
     def _update_aliens(self):

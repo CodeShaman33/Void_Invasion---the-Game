@@ -9,6 +9,7 @@ class Stats:
 
     # stats
         self.ship_health = 10
+        self.power_lvl = 0
 
     def reset_stats(self):
         self.ships_left = self.settings.ships_limit

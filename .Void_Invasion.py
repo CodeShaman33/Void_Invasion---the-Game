@@ -10,7 +10,7 @@ import time
 from score_board import Scoreboard
 from functions import Functions
 from health_bar import Bar
-
+from power_bar import PowerBar
 
 class VoidInvasion:
 
@@ -50,6 +50,7 @@ class VoidInvasion:
     # stats
         self.stats = Stats(self)
         self.ship_health = Bar(self)
+        self.power_bar = PowerBar(self)
     # scoreboard
         self.sb = Scoreboard(self)
         self.score = self.stats.score
