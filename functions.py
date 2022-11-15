@@ -168,7 +168,8 @@ class Functions:
         if not self.game.stats.game_active:
             for button in self.game.buttons:
                 button.draw_button()
-
+    # health bar
+        self.draw_bar()
         pygame.display.flip()
 
     def ship_hit(self):
@@ -194,6 +195,10 @@ class Functions:
 
         if pygame.sprite.spritecollideany(self.game.ship, self.game.aliens):
             self.ship_hit()
+            if self.game.stats.ship_health > 0:
+                self.game.stats.ship_health -= 1
+            else:
+                self.game.ship.visible = False
             self.game.stats.score += self.settings.alien_points
 
     def _check_aliens_bottom(self):
@@ -210,6 +215,7 @@ class Functions:
         pygame.mixer.music.stop()
 
     def fire_bullet_horizontal(self):
+
         new_bullet = BulletHorizontal(self.game, 0)
         new_bullet2 = BulletHorizontal(self.game, 1)
         self.game.bullets_horizontal.add(new_bullet)
@@ -230,6 +236,17 @@ class Functions:
             shooting_alien = random.choice(self.game.aliens.sprites())
             alien_bullet = AlienBullet(self.game, shooting_alien)
             self.game.alien_bullets.add(alien_bullet)
+
+    def draw_bar(self):
+
+# actual life level
+        health_level = self.game.stats.ship_health * 6
+# red background
+        pygame.draw.rect(self.game.screen, (255, 0, 0), pygame.Rect(self.game.ship.rect.x, self.game.ship.rect.y + 50, 60, 10))
+# green life indicator
+        pygame.draw.rect(self.game.screen, (0, 255, 0), pygame.Rect(self.game.ship.rect.x, self.game.ship.rect.y + 50, self.game.stats.ship_health * 6, 10))
+
+        print(health_level)
 
 
 

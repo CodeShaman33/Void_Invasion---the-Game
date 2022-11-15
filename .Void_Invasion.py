@@ -9,6 +9,7 @@ from stats import Stats
 import time
 from score_board import Scoreboard
 from functions import Functions
+from health_bar import Bar
 
 
 class VoidInvasion:
@@ -48,6 +49,7 @@ class VoidInvasion:
         self.FPS_clock = pygame.time.Clock()
     # stats
         self.stats = Stats(self)
+        self.ship_health = Bar(self)
     # scoreboard
         self.sb = Scoreboard(self)
         self.score = self.stats.score
@@ -63,12 +65,15 @@ class VoidInvasion:
                 self.ship.update()
                 self.functions.alien_shot()
                 self.bullets.update()
+
                 self.bullets_horizontal.update()
                 self.alien_bullets.update()
                 self._update_aliens()
                 self.functions._update_bullets()
                 self.functions.check_colissions()
+                self.ship_health.draw_bar(self.ship)
                 self.check_ship()
+
             self.functions.update_screen()
             self.FPS_clock.tick(self.FPS)
 
