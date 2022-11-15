@@ -167,6 +167,8 @@ class Functions:
     # display menu if game isnt active
         if not self.game.stats.game_active:
             for button in self.game.buttons:
+                if button == self.game.diff_status:
+                    button._msg(self.settings.difficulty_levels[self.settings.difficulty_var])
                 button.draw_button()
     # health bar
         self.draw_bar()
@@ -249,7 +251,27 @@ class Functions:
         print(health_level)
 
 
+    def _update_aliens(self):
+        self._check_fleet_edges()
+        self.game.aliens.update()
 
+    def _check_fleet_edges(self):
+        for alien in self.game.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                self.fleet_down()
+                break
+
+
+    def _change_fleet_direction(self):
+        if self.settings.fleet_direction == 1:
+            self.settings.fleet_direction = 0
+        elif self.settings.fleet_direction == 0:
+            self.settings.fleet_direction = 1
+
+    def check_ship(self):
+        if self.settings.ship_collision >= 3:
+            print('koniec gry')
 
 
 
