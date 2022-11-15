@@ -225,9 +225,11 @@ class Functions:
             alien.rect.y += 30
 
     def alien_shot(self):
-        shooting_alien = random.choice(self.game.aliens.sprites())
-        alien_bullet = AlienBullet(self.game, shooting_alien)
-        self.game.alien_bullets.add(alien_bullet)
+        temp_var = random.randint(1, 4000)
+        if temp_var % 2 == 0 and temp_var in [(x + 20) for x in range(30)]:
+            shooting_alien = random.choice(self.game.aliens.sprites())
+            alien_bullet = AlienBullet(self.game, shooting_alien)
+            self.game.alien_bullets.add(alien_bullet)
 
 
 
