@@ -1,11 +1,11 @@
 import pygame
+from health_bar import Bar
 
-class PowerBar:
+class PowerBar(Bar):
 
     def __init__(self, game, color=(100, 0, 255)):
 
-        self.game = game
-        self.settings = self.game.settings
+        Bar.__init__(self, game)
         self.color = color
 
 
@@ -16,3 +16,5 @@ class PowerBar:
 
     def update_bar(self):
         pass
+
+
