@@ -2,6 +2,10 @@ import pygame
 from pygame.sprite import Sprite
 from settings import Settings
 
+'''
+In this module are classes used to create all kind of bullets existing in game.
+Player ship can fire normal straight bullet with every space hit,
+when power bar are full there player can fire special horizontal bullets'''
 
 class Bullet(Sprite):
 
@@ -14,7 +18,9 @@ class Bullet(Sprite):
         self.rect = pygame.Rect(0, 0, self.settings.bullet_width,
                                 self.settings.bullet_height)
         self.rect.midtop = game.ship.rect.midtop
+    # set as float to have more control of the location
         self.y = float(self.rect.y)
+
     def update(self):
         self.y -= self.settings.bullet_speed
         self.rect.y = self.y
@@ -34,15 +40,13 @@ class BulletHorizontal(Sprite):
 
         self.rect = pygame.Rect(0, 0, self.settings.horizontal_bullet_width,
                                 self.settings.horizontal_bullet_height)
-
-
         self.rect.midtop = game.ship.rect.midtop
-
-
         self.x = float(self.rect.x)
 
 
     def update(self):
+        '''horizontal bullets are fired in both ways at the same time,
+        temp_var is used to be able update both bullets'''
         if self.temp_var == 0:
             self.x -= self.settings.bullet_speed
             self.rect.x = self.x
@@ -50,9 +54,6 @@ class BulletHorizontal(Sprite):
         elif self.temp_var == 1:
             self.x += self.settings.bullet_speed
             self.rect.x = self.x
-
-
-
 
     def draw_bullet(self):
         pygame.draw.rect(self.screen, self.color, self.rect)

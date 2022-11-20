@@ -29,7 +29,6 @@ class VoidInvasion:
     # sounds
         self.laser_sound = pygame.mixer.Sound(self.settings.laser_sound)
         self.collision_sound = pygame.mixer.Sound(self.settings.collision_sound)
-        #self.create_fleet()
     #buttons
         self.buttons = []
         self.play_button = Button(self, 'Play', self.settings.position['play'])
@@ -41,7 +40,6 @@ class VoidInvasion:
         self.diff_status = Button(self, str(self.settings.difficulty_levels[self.settings.difficulty_var]), self.settings.position['diff_status'])
         self.buttons.append(self.diff_status)
         self.functions = Functions(self)
-
     # additional variables
         self.var = False
     # FPS
@@ -54,26 +52,24 @@ class VoidInvasion:
     # scoreboard
         self.sb = Scoreboard(self)
         self.score = self.stats.score
+    # in separate  .py file
         self.functions = Functions(self)
 
 
     def run_game(self):
-        self.play_button.draw_button()
-        #starting gameplay loop
+
         while True:
             self.functions.check_events()
             if self.stats.game_active:
                 self.ship.update()
                 self.functions.alien_shot()
                 self.bullets.update()
-
                 self.bullets_horizontal.update()
                 self.alien_bullets.update()
                 self.functions._update_aliens()
                 self.functions._update_bullets()
                 self.functions.check_colissions()
                 self.ship_health.draw_bar(self.ship)
-                self.functions.check_ship()
 
             self.functions.update_screen()
             self.FPS_clock.tick(self.FPS)
@@ -83,6 +79,6 @@ class VoidInvasion:
 
 
 if __name__ == '__main__':
-    #create instance of game model and run it
+#create instance of game model and run it
     ai = VoidInvasion()
     ai.run_game()

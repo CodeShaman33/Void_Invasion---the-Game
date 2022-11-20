@@ -2,7 +2,7 @@ import pygame
 from health_bar import Bar
 
 class PowerBar(Bar):
-
+    '''This class is similar to health_bar class so it inherits most of its atributtes'''
     def __init__(self, game, color=(100, 0, 255)):
 
         Bar.__init__(self, game)

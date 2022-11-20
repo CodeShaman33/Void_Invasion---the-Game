@@ -3,6 +3,7 @@ import pygame
 class Scoreboard:
 
     def __init__(self, game):
+        '''this class creates a field on the screen with actual score due to alien destroyed'''
 
         self.screen = game.screen
         self.screen_rect = game.screen.get_rect()
