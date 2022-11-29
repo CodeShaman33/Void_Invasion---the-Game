@@ -9,8 +9,8 @@ from stats import Stats
 import time
 from score_board import Scoreboard
 from functions import Functions
-from health_bar import Bar
-from power_bar import PowerBar
+from bars import Bar
+from bars import PowerBar
 
 class VoidInvasion:
 
